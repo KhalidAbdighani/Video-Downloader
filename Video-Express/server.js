@@ -9,6 +9,8 @@ app.use(cors({
 }))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const {router}= require("./routes/download-rout")
+app.use(router)
 
 PORT= process.env.PORT
 app.listen(PORT,()=>{
