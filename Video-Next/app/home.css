@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;800;900&display=swap');
+*{
+    padding: 0px;
+    margin: 0px ;
+    box-sizing: border-box;
+}
+
+.main{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #f5f0e8;
+    flex-direction: column;
+    gap: 10px;
+
+
+    background-color: #F4F3E8; /* لون الخلفية الكريمي */
+  background-image: 
+    linear-gradient(to right, rgba(38, 78, 38, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(38, 78, 38, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px; /* حجم المربعات */
+}
+h1{
+   font-family: "Barlow Condensed", sans-serif;
+    font-size: 100PX;
+    font-weight: 900;
+
+}
+p{
+    font-size: 20px;
+}
+.bar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     background: 	#efeee1;
+     border: solid 1px #2d5a27;
+     border-radius: 8PX;
+     padding: 15px;
+     gap: 10px;
+     margin-top: 50px;
+     width: 40%;
+     
+}
+
+
