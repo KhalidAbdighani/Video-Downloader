@@ -24,10 +24,21 @@ export default function Home() {
 
           body: JSON.stringify({url:URLbox})
         })
-        const data = await response.json()
-        console.log(data)
+
+
+        const blob = await response.blob()
+        const bloburl= URL.createObjectURL(blob)
+        const a = document.createElement("a")
+        a.href=bloburl
+        a.download=""
+        
+        a.click()
+        window.URL.revokeObjectURL(bloburl);
+        Setloading(false)
+        
         if (!response.ok) {
-      throw new Error("Download failed");
+      console.log("Download failed");
+    
     }
     
     
@@ -60,3 +71,4 @@ export default function Home() {
     </div>
   );
 }
+
