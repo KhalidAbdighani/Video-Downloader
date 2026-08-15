@@ -1,63 +1,83 @@
 const ytDlp = require("yt-dlp-exec");
 const path = require("path");
 const fs = require("fs");
+const os = require("os");
 const postdownload= async  (req,res)=>{
 
+     const io = req.app.get("io");
+
   const { url } = req.body;
-try{
-    if (!url) {
+   if (!url) {
     return res.status(400).json({
         message: "URL is required"
     });
 }
 
+  
+try{
+ 
 const vidinfo = await ytDlp(url,{
-    dumpSingleJson:true
+    dumpSingleJson:true,
+    noWarnings: true,
+    forceIpv4: true,
+    extractorArgs: "youtube:player_client=web_creator,android"
 });
 
-const vidname= vidinfo.title
-const fileName = vidname.replace(/[<>:"/\\|?*]/g, "");
+const fileName = vidinfo.title.replace(/[<>:"/\\|?*]/g, "").trim() || "downloaded_video";
+const tempFilePath = path.join(os.tmpdir(), `yt_${Date.now()}.mp4`);
 
 
-const output = path.join(
-    __dirname,
-    "../downloads",
-   "%(title)s.%(ext)s"
-);
 
-const filepath = path.join(__dirname, "../downloads/video.mp4");
- await ytDlp(url, {
-    output:filepath,
-    format: "bv*+ba/b",
-    mergeOutputFormat: "mp4"
+const subprocess = ytDlp.exec(url, {
+  output: tempFilePath, 
+  format: "bestvideo[height<=1080]+bestaudio/best[height<=1080]",
+  newline: true,
+  noCheckCertificates: true,
+  forceIpv4: true,
+  concurrentFragments: 5,
+//   extractorArgs: "youtube:player_client=web_creator,android",
+  mergeOutputFormat: "mp4"
+});
+
+
+
+subprocess.stdout.on("data", (data) => {
+      const line = data.toString();
+      const match = line.match(/\[download\]\s+([\d.]+)%/);
+      if (match) {
+        const percent = parseFloat(match[1]);
+        io.emit("progress", { percent });
+      }
+    });
     
-});
+    await subprocess;
 
+    res.download(tempFilePath, `${fileName}.mp4`, (err) => {
+      if (err) {
+        console.error("Send Error:", err);
+      }
 
-console.log(filepath);
-console.log(typeof filepath);
-res.download(filepath,"downloaded.mp4", (err) => {
-
-    if (err) {
-        console.log(err);
-        return;
-    }
-
-    fs.unlink(filepath, (err) => {
-        if (err) console.log(err);
+      // تنظيف الملف المؤقت لتبقى مساحة السيرفر دائماً صفر
+      if (fs.existsSync(tempFilePath)) {
+        fs.unlink(tempFilePath, (unlinkErr) => {
+          if (unlinkErr) console.error("Unlink error:", unlinkErr);
+        });
+      }
     });
 
-});
 
-       
+   
+
 
 }catch (err) {
 
         console.log(err);
 
-        res.status(500).json({
-            message: "Download failed"
-        });
+        if (!res.headersSent) {
+      res.status(500).json({
+        message: "Download failed"
+      });
+    }
 
     }
 
