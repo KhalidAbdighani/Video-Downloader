@@ -21,7 +21,7 @@ const vidinfo = await ytDlp(url,{
     dumpSingleJson:true,
     noWarnings: true,
     forceIpv4: true,
-   
+   format: "bv*+ba/b",
     cookies: cookiesPath
 });
 
