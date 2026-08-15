@@ -41,13 +41,13 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL(
   process.env.NODE_ENV === "production"
-    ? "https://your-domain.vercel.app"
+    ? "video-downloader-phi-woad.vercel.app"
     : "http://localhost:3000"
 ),
   openGraph: {
     title: "Free YouTube Video Downloader - High Quality 1080p",
     description: "Paste the video link and download high-quality with zero limits.",
-    // url: "",
+    url: "video-downloader-phi-woad.vercel.app",
     siteName: "Video Downloader",
     
     locale: "en_US",

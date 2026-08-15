@@ -17,7 +17,7 @@ export default function Home() {
     try{
       Setloading(true)
       
-      const response = await fetch("http://localhost:5000/download",
+      const response = await fetch("https://video-express.onrender.com/download",
         {
           method:"POST",
           credentials:"include",
@@ -59,7 +59,7 @@ export default function Home() {
 
     useEffect(() => {
 
-    const socket = io("http://localhost:5000");
+    const socket = io("https://video-express.onrender.com");
 
     socket.on("progress", (data) => {
 
