@@ -35,7 +35,8 @@ const subprocess = ytDlp.exec(url, {
   noCheckCertificates: true,
   forceIpv4: true,
   concurrentFragments: 5,
-  extractorArgs: "youtube:player_client=web_creator,android",
+ 
+   cookies: "cookies.txt",
   mergeOutputFormat: "mp4"
 });
 

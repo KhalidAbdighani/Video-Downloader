@@ -7,13 +7,13 @@ const http = require("http")
 const server = http.createServer(app)
 
 const io = new Server(server, { cors: { 
-    origin:"https://video-downloader-phi-woad.vercel.app",
+    origin:"https://video-downloader-k3ah33erb-5948.vercel.app",
     credentials:true
 }})
 
 
 app.use(cors({
-    origin:"https://video-downloader-phi-woad.vercel.app", 
+    origin:"https://video-downloader-k3ah33erb-5948.vercel.app", 
     credentials:true
 }))
 app.use(express.json());
