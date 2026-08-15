@@ -15,12 +15,14 @@ const postdownload= async  (req,res)=>{
 
   
 try{
+  const cookiesPath = path.join(__dirname, "../cookies.txt");
  
 const vidinfo = await ytDlp(url,{
     dumpSingleJson:true,
     noWarnings: true,
     forceIpv4: true,
-    extractorArgs: "youtube:player_client=web_creator,android"
+    extractorArgs: "youtube:player_client=web_creator,android",
+    cookies: cookiesPath
 });
 
 const fileName = vidinfo.title.replace(/[<>:"/\\|?*]/g, "").trim() || "downloaded_video";
@@ -36,7 +38,7 @@ const subprocess = ytDlp.exec(url, {
   forceIpv4: true,
   concurrentFragments: 5,
  
-   cookies: "cookies.txt",
+   cookies: cookiesPath,
   mergeOutputFormat: "mp4"
 });
 

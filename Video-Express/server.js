@@ -1,6 +1,12 @@
 const express = require("express")
 const cors= require("cors")
 require("dotenv").config()
+if (process.env.YOUTUBE_COOKIES) {
+    fs.writeFileSync(
+        path.join(__dirname, "cookies.txt"),
+        process.env.YOUTUBE_COOKIES
+    );
+}
 const app = express()
 const {Server} = require("socket.io")
 const http = require("http")
