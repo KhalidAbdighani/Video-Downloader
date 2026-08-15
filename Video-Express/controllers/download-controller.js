@@ -35,7 +35,7 @@ const subprocess = ytDlp.exec(url, {
   noCheckCertificates: true,
   forceIpv4: true,
   concurrentFragments: 5,
-//   extractorArgs: "youtube:player_client=web_creator,android",
+  extractorArgs: "youtube:player_client=web_creator,android",
   mergeOutputFormat: "mp4"
 });
 
@@ -57,7 +57,7 @@ subprocess.stdout.on("data", (data) => {
         console.error("Send Error:", err);
       }
 
-      // تنظيف الملف المؤقت لتبقى مساحة السيرفر دائماً صفر
+  
       if (fs.existsSync(tempFilePath)) {
         fs.unlink(tempFilePath, (unlinkErr) => {
           if (unlinkErr) console.error("Unlink error:", unlinkErr);

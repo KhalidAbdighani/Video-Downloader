@@ -13,7 +13,7 @@ const io = new Server(server, { cors: {
 
 
 app.use(cors({
-    origin:process.env.CLIENT_PORT, 
+    origin:"https://video-downloader-phi-woad.vercel.app", 
     credentials:true
 }))
 app.use(express.json());
@@ -24,7 +24,7 @@ app.use(router)
 
 
 
-const PORT = process.env.PORT ||"5000"; 
+const PORT = process.env.PORT; 
 server.listen(PORT,()=>{
     console.log("Concetted to the server successfully!")
 })
