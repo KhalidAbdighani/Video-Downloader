@@ -21,7 +21,7 @@ const vidinfo = await ytDlp(url,{
     dumpSingleJson:true,
     noWarnings: true,
     forceIpv4: true,
-   format: "bv*+ba/b",
+   
     cookies: cookiesPath
 });
 
@@ -32,7 +32,7 @@ const tempFilePath = path.join(os.tmpdir(), `yt_${Date.now()}.mp4`);
 
 const subprocess = ytDlp.exec(url, {
   output: tempFilePath, 
-  format: "bv*+ba/b",
+  format: "bestvideo[height<=1080]+bestaudio/best[height<=1080]/best",
   newline: true,
   noCheckCertificates: true,
   forceIpv4: true,
