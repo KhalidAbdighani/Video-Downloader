@@ -21,10 +21,11 @@ const vidinfo = await ytDlp(url,{
     dumpSingleJson:true,
     noWarnings: true,
     forceIpv4: true,
-    extractorArgs: "youtube:player_client=android,web",
+    extractorArgs: "youtube:player_client=ios",
    
     cookies: cookiesPath
 });
+console.log(formats);
 
 const fileName = vidinfo.title.replace(/[<>:"/\\|?*]/g, "").trim() || "downloaded_video";
 const tempFilePath = path.join(os.tmpdir(), `yt_${Date.now()}.mp4`);
