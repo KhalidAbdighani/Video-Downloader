@@ -21,6 +21,7 @@ const vidinfo = await ytDlp(url,{
     dumpSingleJson:true,
     noWarnings: true,
     forceIpv4: true,
+    extractorArgs: "youtube:player_client=android,web",
    
     cookies: cookiesPath
 });
