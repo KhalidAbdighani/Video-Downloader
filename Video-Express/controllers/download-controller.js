@@ -16,8 +16,17 @@ const postdownload= async  (req,res)=>{
   
 try{
   const cookiesPath = path.join(__dirname, "../cookies.txt");
-const { stdout } = await ytDlp.exec("--version");
-console.log("YT-DLP VERSION:", stdout);
+  
+const formats = await ytDlp.exec(url, {
+    listFormats: true,
+    noWarnings: false,
+    forceIpv4: true
+});
+
+console.log("FORMATS RESULT:");
+console.log(formats.stdout);
+console.log("FORMATS ERROR:");
+console.log(formats.stderr);
 
 
 const vidinfo = await ytDlp(url,{
